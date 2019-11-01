@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      JDBC连接数据库的步骤 | Hexo
+      jsp对象 | Hexo
     
   </title>
   <meta name="author" content="John Doe">
@@ -160,7 +160,7 @@
 	<!-- Page title -->
 	<p>
 		
-			Current post&nbsp;:&nbsp;《JDBC连接数据库的步骤》
+			Current post&nbsp;:&nbsp;《jsp对象》
 		
 	</p>
 
@@ -277,8 +277,8 @@
 	<div class="article-title">
 		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
 		
-	<a href="/2019/10/31/jdbc%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%AD%A5%E9%AA%A4/" itemprop="url">
-		JDBC连接数据库的步骤
+	<a href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" itemprop="url">
+		jsp对象
 	</a>
 
 	</div>
@@ -291,9 +291,9 @@
 
 	Posted on
 
-	<a href="/2019/10/31/jdbc%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%AD%A5%E9%AA%A4/" itemprop="url">
-		<time datetime="2019-10-31T00:59:38.024Z" itemprop="datePublished">
-	  		2019-10-31
+	<a href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" itemprop="url">
+		<time datetime="2019-11-01T03:25:36.493Z" itemprop="datePublished">
+	  		2019-11-01
 	  </time>
 	</a>
 	&nbsp;
@@ -309,9 +309,9 @@
 
 	Updated on
 
-	<a href="/2019/10/31/jdbc%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%AD%A5%E9%AA%A4/" itemprop="url">
-		<time datetime="2019-10-31T00:59:38.024Z" itemprop="dateUpdated">
-	  		2019-10-31
+	<a href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" itemprop="url">
+		<time datetime="2019-11-01T03:25:36.493Z" itemprop="dateUpdated">
+	  		2019-11-01
 	  </time>
 	</a> 
 
@@ -330,20 +330,56 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<h4 id="1-jar包的引入"><a href="#1-jar包的引入" class="headerlink" title="1.jar包的引入"></a>1.jar包的引入</h4><h5 id="（1）首先要百度下载一个jar包"><a href="#（1）首先要百度下载一个jar包" class="headerlink" title="（1）首先要百度下载一个jar包"></a>（1）首先要百度下载一个jar包</h5><h5 id="（2）在lib中导入jar包"><a href="#（2）在lib中导入jar包" class="headerlink" title="（2）在lib中导入jar包"></a>（2）在lib中导入jar包</h5><h5 id="3-在MySQL的jar包上右键选择-build-path-—-gt-add-to-build-path"><a href="#3-在MySQL的jar包上右键选择-build-path-—-gt-add-to-build-path" class="headerlink" title="(3)在MySQL的jar包上右键选择 build path —&gt; add to build path"></a>(3)在MySQL的jar包上右键选择 build path —&gt; add to build path</h5><h4 id="2-注册驱动"><a href="#2-注册驱动" class="headerlink" title="2.注册驱动"></a>2.注册驱动</h4><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</span><br></pre></td></tr></table></figure>
+		<h3 id="1-request对象"><a href="#1-request对象" class="headerlink" title="1.request对象"></a>1.request对象</h3><p>(1)request对象是http请求的代表</p>
+<p>requset对象是ServletRequset的一个实例。当客户端请求一个JPS网页时，JPS引擎会将客户的请求信息包装在这个request对象中。</p>
+<p>(2)request对象的方法</p>
+<p>request内置对象代表了客户端的请求信息，他的各个功能都封装在其他方法中。</p>
+<p>request对象方法：</p>
+<table>
+<thead>
+<tr>
+<th>getHeader(String name)</th>
+<th>获得http协议定义的传送文件头信息。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>getHeaderNames()</td>
+<td>返回所有request header的名字，结果集是一个Enumeration(枚举)类的实例。</td>
+</tr>
+<tr>
+<td>getRemoteAddr()</td>
+<td>获得客户端的IP地址。</td>
+</tr>
+<tr>
+<td>isSecure()</td>
+<td>如果客户机是通过一个安全的访问方式访问的，就返回true，反之，返回false。</td>
+</tr>
+<tr>
+<td>getCookies()</td>
+<td>返回客户端的cookie对象，结果是一个cookie数组。</td>
+</tr>
+<tr>
+<td>getMethod()</td>
+<td>返回客户端向服务器端传送数据的方法，一般方法有get，post等类型。</td>
+</tr>
+<tr>
+<td>getParameter(String name)</td>
+<td>以字符串的形式返回客户端传来的某一个请求参数的值，该参数名由name指定。当传递给此方法的参数名没有实际参数与之对应时，返回null。</td>
+</tr>
+<tr>
+<td>getParameterNames()</td>
+<td>返回客户端传送给服务器端的所有参数名，结果集是Enumeration(枚举)类的实例。</td>
+</tr>
+</tbody></table>
+<h3 id="2-response对象"><a href="#2-response对象" class="headerlink" title="2.response对象"></a>2.response对象</h3><p>实例：</p>
+<p>用户登录页面</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> <span class="keyword">import</span>=<span class="string">"java.util.*"</span> pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;!DOCTYPE HTML PUBLIC <span class="string">"-//W3C//DTD HTML 4.01 Transitional//EN"</span>&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;title&gt;用户登录&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;body&gt;</span><br><span class="line">		&lt;form name=<span class="string">"form1"</span> method=post action=<span class="string">"control.jsp"</span>&gt;</span><br><span class="line">			用户名：&lt;input type=<span class="string">"text"</span> name=<span class="string">"userName"</span>&gt;</span><br><span class="line">			密码：&lt;input type=<span class="string">"password"</span> name=<span class="string">"pwd"</span>&gt;</span><br><span class="line">			&lt;input type=<span class="string">"submit"</span> value=<span class="string">"登录"</span>&gt;</span><br><span class="line">		&lt;/form&gt;</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
-<h5 id="显示的加载到JVM中"><a href="#显示的加载到JVM中" class="headerlink" title="显示的加载到JVM中"></a>显示的加载到JVM中</h5><h4 id="3-获取连接"><a href="#3-获取连接" class="headerlink" title="3.获取连接"></a>3.获取连接</h4><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String url = <span class="string">"jdbc:mysql://127.0.0.1:3306/Schooldb"</span>;</span><br></pre></td></tr></table></figure>
+<p>登录处理页面</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span>  pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;title&gt;登录处理页面&lt;/title&gt;</span><br><span class="line">	&lt;/head&gt;</span><br><span class="line">	&lt;body&gt;</span><br><span class="line">	&lt;%</span><br><span class="line">		request.setCharacterEncoding(<span class="string">"UTF-8"</span>);</span><br><span class="line">		<span class="comment">//request.getParameter("username")可以接受到表单传递的username参数，对应jsp表单的input的name是username的表单。</span></span><br><span class="line">		String name = request.getParameter(<span class="string">"userName"</span>);</span><br><span class="line">		<span class="comment">//request.getParameter("password")可以接受到表单传递的password参数，对应jsp表单的input的name是password的表单。</span></span><br><span class="line">		String pwd = request.getParameter(<span class="string">"pwd"</span>);</span><br><span class="line">        </span><br><span class="line">		<span class="keyword">if</span>(<span class="string">"sa"</span>.equals(name)&amp;&amp;<span class="string">"sa"</span>.equals(pwd))&#123;</span><br><span class="line">	 		response.sendRedirect(<span class="string">"welcome.jsp"</span>);</span><br><span class="line">		&#125; </span><br><span class="line">	%&gt;</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String userName = <span class="string">"root"</span>;<span class="comment">//MySQL配置时的用户名</span></span><br><span class="line"></span><br><span class="line">String password = <span class="string">"111111"</span></span><br></pre></td></tr></table></figure>
-<h4 id="4-连接数据库"><a href="#4-连接数据库" class="headerlink" title="4.连接数据库"></a>4.连接数据库</h4><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Connection conn = DriverManager.getConnection(url, userName, password);</span><br></pre></td></tr></table></figure>
-
-<h4 id="5-执行SQL语句"><a href="#5-执行SQL语句" class="headerlink" title="5.执行SQL语句"></a>5.执行SQL语句</h4><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Statement statement = conn.createStatement();</span><br><span class="line"></span><br><span class="line">String sql = <span class="string">"select * from StudentInfo"</span>;</span><br><span class="line"></span><br><span class="line">ResultSet rs = statement.executeQuery(sql);</span><br></pre></td></tr></table></figure>
-<h4 id="6-遍历结果集"><a href="#6-遍历结果集" class="headerlink" title="6.遍历结果集"></a>6.遍历结果集</h4><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (rs.next()) &#123;</span><br><span class="line">    name = rs.getString(<span class="string">"StudentName"</span>);</span><br><span class="line">    age = rs.getString(<span class="string">"Age"</span>);</span><br><span class="line">    out.println(name + <span class="string">"\t"</span> + age);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="7-关闭对象"><a href="#7-关闭对象" class="headerlink" title="7.关闭对象"></a>7.关闭对象</h4><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rs.close();</span><br><span class="line">conn.close();</span><br></pre></td></tr></table></figure>
-
-<h4 id="具体代码如下："><a href="#具体代码如下：" class="headerlink" title="具体代码如下："></a>具体代码如下：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=utf-8"</span>%&gt;</span><br><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"java.sql.*"</span>%&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=<span class="string">"ISO-8859-1"</span>&gt;</span><br><span class="line">&lt;title&gt;Insert title here&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;%</span><br><span class="line">		String driver = <span class="string">"com.mysql.jdbc.Driver"</span>;</span><br><span class="line">    </span><br><span class="line">		String url = <span class="string">"jdbc:mysql://127.0.0.1:3306/Schooldb"</span>;<span class="comment">//url指向要访问的数据库名Schooldb(是你自己的数据库名)</span></span><br><span class="line">    </span><br><span class="line">		String userName = <span class="string">"root"</span>;<span class="comment">//MySQL配置时的用户名</span></span><br><span class="line">    </span><br><span class="line">		String password = <span class="string">"111111"</span>;<span class="comment">//Java连接MySQL配置时的密码</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">			<span class="comment">//1 加载驱动程序</span></span><br><span class="line"></span><br><span class="line">			Class.forName(driver);</span><br><span class="line"></span><br><span class="line">			<span class="comment">//2 连接数据库</span></span><br><span class="line"></span><br><span class="line">			Connection conn = DriverManager.getConnection(url, userName, password);</span><br><span class="line"></span><br><span class="line">			<span class="comment">//3 用来执行SQL语句</span></span><br><span class="line"></span><br><span class="line">			Statement statement = conn.createStatement();</span><br><span class="line"></span><br><span class="line">			<span class="comment">//要执行的SQL语句 StudentInfo（自己要查询的数据表）</span></span><br><span class="line"></span><br><span class="line">			String sql = <span class="string">"select * from StudentInfo"</span>;</span><br><span class="line"></span><br><span class="line">			ResultSet rs = statement.executeQuery(sql);</span><br><span class="line">            </span><br><span class="line">			String name = <span class="keyword">null</span>;</span><br><span class="line">			String age = <span class="keyword">null</span>;</span><br><span class="line">			<span class="keyword">while</span> (rs.next()) &#123;</span><br><span class="line">                <span class="comment">//StudentName、Age是自己数据表中的数据</span></span><br><span class="line">				name = rs.getString(<span class="string">"StudentName"</span>);</span><br><span class="line">				age = rs.getString(<span class="string">"Age"</span>);</span><br><span class="line">				out.println(name + <span class="string">"\t"</span> + age);</span><br><span class="line">			&#125;</span><br><span class="line">			rs.close();</span><br><span class="line">			conn.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Sorry,can`t find the Driver!"</span>);</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	%&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
+<p>欢迎页面</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;title&gt;欢迎页面&lt;/title&gt;</span><br><span class="line">	&lt;/head&gt;</span><br><span class="line">	&lt;body&gt;</span><br><span class="line">		欢迎进入本页面！</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 	
 	</div>
 	
@@ -362,12 +398,8 @@
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
 		
-			<a href="/2019/10/31/JSP%E5%89%8D%E4%B8%89%E7%AB%A0%E6%80%BB%E7%BB%93/" title="JSP前三章总结" rel="prev">
-				&laquo;Pre post
-			</a>
 		
-		
-			<a href="/2019/10/31/SQL%E9%AB%98%E7%BA%A7%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL高级子查询" rel="next">
+			<a href="/2019/10/31/JSP%E5%89%8D%E4%B8%89%E7%AB%A0%E6%80%BB%E7%BB%93/" title="JSP前三章总结" rel="next">
 				Next post&raquo;
 			</a>
 			
@@ -385,31 +417,6 @@
 <div class="relate-post">
 	
 		<ul>
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" title="jsp对象">
-								jsp对象			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								十一月 1日, 2019				
-							</p>
-							<p class="relate-post-content">
-								1.request对象(1)request对象是http请求的代表
-requset对象是ServletRequset的一个实例。当客户端请求一个JPS网页时，JPS引擎会将客户的请求信息包装在这个request对象中。
-(2)requ...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" title="jsp对象">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="jsp对象"/>
-							</a>
-						</div>
-					</li>											
-			
 			
 					<li>
 						<div class="relate-post-text">
@@ -431,6 +438,29 @@ requset对象是ServletRequset的一个实例。当客户端请求一个JPS网�
 							<a href="/2019/10/31/JSP%E5%89%8D%E4%B8%89%E7%AB%A0%E6%80%BB%E7%BB%93/" title="JSP前三章总结">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="JSP前三章总结"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/10/31/jdbc%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%AD%A5%E9%AA%A4/" title="JDBC连接数据库的步骤">
+								JDBC连接数据库的步骤			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 31日, 2019				
+							</p>
+							<p class="relate-post-content">
+								1.jar包的引入（1）首先要百度下载一个jar包（2）在lib中导入jar包(3)在MySQL的jar包上右键选择 build path —&gt; add to build path2.注册驱动1Class.forName("co...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/10/31/jdbc%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%AD%A5%E9%AA%A4/" title="JDBC连接数据库的步骤">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="JDBC连接数据库的步骤"/>
 							</a>
 						</div>
 					</li>											
