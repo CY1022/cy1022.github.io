@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      jsp对象 | Hexo
+      EL表达式 | Hexo
     
   </title>
   <meta name="author" content="John Doe">
@@ -160,7 +160,7 @@
 	<!-- Page title -->
 	<p>
 		
-			Current post&nbsp;:&nbsp;《jsp对象》
+			Current post&nbsp;:&nbsp;《EL表达式》
 		
 	</p>
 
@@ -277,8 +277,8 @@
 	<div class="article-title">
 		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
 		
-	<a href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" itemprop="url">
-		jsp对象
+	<a href="/2019/11/25/EL%E8%A1%A8%E8%BE%BE%E5%BC%8F/" itemprop="url">
+		EL表达式
 	</a>
 
 	</div>
@@ -291,9 +291,9 @@
 
 	Posted on
 
-	<a href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" itemprop="url">
-		<time datetime="2019-10-31T16:00:00.000Z" itemprop="datePublished">
-	  		2019-11-01
+	<a href="/2019/11/25/EL%E8%A1%A8%E8%BE%BE%E5%BC%8F/" itemprop="url">
+		<time datetime="2019-11-24T16:00:00.000Z" itemprop="datePublished">
+	  		2019-11-25
 	  </time>
 	</a>
 	&nbsp;
@@ -309,8 +309,8 @@
 
 	Updated on
 
-	<a href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" itemprop="url">
-		<time datetime="2019-10-31T16:00:00.000Z" itemprop="dateUpdated">
+	<a href="/2019/11/25/EL%E8%A1%A8%E8%BE%BE%E5%BC%8F/" itemprop="url">
+		<time datetime="2019-11-24T16:00:00.000Z" itemprop="dateUpdated">
 	  		2019-12-10
 	  </time>
 	</a> 
@@ -330,57 +330,165 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<h3 id="1-request对象"><a href="#1-request对象" class="headerlink" title="1.request对象"></a>1.request对象</h3><p>(1)request对象是http请求的代表</p>
-<p>requset对象是ServletRequset的一个实例。当客户端请求一个JPS网页时，JPS引擎会将客户的请求信息包装在这个request对象中。</p>
-<p>(2)request对象的方法</p>
-<p>request内置对象代表了客户端的请求信息，他的各个功能都封装在其他方法中。</p>
-<p>request对象方法：</p>
+		<h4 id="EL-Expression-Language"><a href="#EL-Expression-Language" class="headerlink" title="EL(Expression  Language)"></a>EL(Expression  Language)</h4><h5 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h5><p>EL是为了使JSP写起来更加简单。表达式语言的灵感来自于 ECMAScript 和 XPath 表达式语言，它提供了在 JSP 中简化表达式的方法，让Jsp的代码更加简化。</p>
+<h5 id="2-功能"><a href="#2-功能" class="headerlink" title="2.功能"></a>2.功能</h5><p>替代JSP页面中复杂的代码</p>
+<h5 id="3-特点"><a href="#3-特点" class="headerlink" title="3.特点"></a>3.特点</h5><p>自动转换类型</p>
+<h5 id="4-变量"><a href="#4-变量" class="headerlink" title="4.变量"></a>4.变量</h5><p>EL存取变量数据的方法很简单，例如：${username}。它的意思是取出某一范围中名称为username的变量。</p>
+<p>因为我们并没有指定哪一个范围的username，所以它会依序从Page、Request、Session、Application范围查找。</p>
+<p>属性范围在EL中的名称</p>
 <table>
 <thead>
 <tr>
-<th>getHeader(String name)</th>
-<th>获得http协议定义的传送文件头信息。</th>
+<th align="center">Page</th>
+<th>PageScope</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>getHeaderNames()</td>
-<td>返回所有request header的名字，结果集是一个Enumeration(枚举)类的实例。</td>
+<td align="center">Request</td>
+<td>RequestScope</td>
 </tr>
 <tr>
-<td>getRemoteAddr()</td>
-<td>获得客户端的IP地址。</td>
+<td align="center">Session</td>
+<td>SessionScope</td>
 </tr>
 <tr>
-<td>isSecure()</td>
-<td>如果客户机是通过一个安全的访问方式访问的，就返回true，反之，返回false。</td>
-</tr>
-<tr>
-<td>getCookies()</td>
-<td>返回客户端的cookie对象，结果是一个cookie数组。</td>
-</tr>
-<tr>
-<td>getMethod()</td>
-<td>返回客户端向服务器端传送数据的方法，一般方法有get，post等类型。</td>
-</tr>
-<tr>
-<td>getParameter(String name)</td>
-<td>以字符串的形式返回客户端传来的某一个请求参数的值，该参数名由name指定。当传递给此方法的参数名没有实际参数与之对应时，返回null。</td>
-</tr>
-<tr>
-<td>getParameterNames()</td>
-<td>返回客户端传送给服务器端的所有参数名，结果集是Enumeration(枚举)类的实例。</td>
+<td align="center">Application</td>
+<td>ApplicationScope</td>
 </tr>
 </tbody></table>
-<h3 id="2-response对象"><a href="#2-response对象" class="headerlink" title="2.response对象"></a>2.response对象</h3><p>实例：</p>
-<p>用户登录页面</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> <span class="keyword">import</span>=<span class="string">"java.util.*"</span> pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;!DOCTYPE HTML PUBLIC <span class="string">"-//W3C//DTD HTML 4.01 Transitional//EN"</span>&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;title&gt;用户登录&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;body&gt;</span><br><span class="line">		&lt;form name=<span class="string">"form1"</span> method=post action=<span class="string">"control.jsp"</span>&gt;</span><br><span class="line">			用户名：&lt;input type=<span class="string">"text"</span> name=<span class="string">"userName"</span>&gt;</span><br><span class="line">			密码：&lt;input type=<span class="string">"password"</span> name=<span class="string">"pwd"</span>&gt;</span><br><span class="line">			&lt;input type=<span class="string">"submit"</span> value=<span class="string">"登录"</span>&gt;</span><br><span class="line">		&lt;/form&gt;</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>登录处理页面</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span>  pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;title&gt;登录处理页面&lt;/title&gt;</span><br><span class="line">	&lt;/head&gt;</span><br><span class="line">	&lt;body&gt;</span><br><span class="line">	&lt;%</span><br><span class="line">		request.setCharacterEncoding(<span class="string">"UTF-8"</span>);</span><br><span class="line">		<span class="comment">//request.getParameter("username")可以接受到表单传递的username参数，对应jsp表单的input的name是username的表单。</span></span><br><span class="line">		String name = request.getParameter(<span class="string">"userName"</span>);</span><br><span class="line">		<span class="comment">//request.getParameter("password")可以接受到表单传递的password参数，对应jsp表单的input的name是password的表单。</span></span><br><span class="line">		String pwd = request.getParameter(<span class="string">"pwd"</span>);</span><br><span class="line">        </span><br><span class="line">		<span class="keyword">if</span>(<span class="string">"sa"</span>.equals(name)&amp;&amp;<span class="string">"sa"</span>.equals(pwd))&#123;</span><br><span class="line">	 		response.sendRedirect(<span class="string">"welcome.jsp"</span>);</span><br><span class="line">		&#125; </span><br><span class="line">	%&gt;</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>欢迎页面</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;title&gt;欢迎页面&lt;/title&gt;</span><br><span class="line">	&lt;/head&gt;</span><br><span class="line">	&lt;body&gt;</span><br><span class="line">		欢迎进入本页面！</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
+<h5 id="5-EL表达式语言提供操作符"><a href="#5-EL表达式语言提供操作符" class="headerlink" title="5.EL表达式语言提供操作符"></a>5.EL表达式语言提供操作符</h5><table>
+<thead>
+<tr>
+<th>术语</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>算术型</td>
+<td>+、-（二元）、*、/、div、%、mod、-（一元）</td>
+</tr>
+<tr>
+<td>逻辑型</td>
+<td>and、&amp;&amp;、or、||、!、not</td>
+</tr>
+<tr>
+<td>关系型</td>
+<td>==、eq、!=、ne、&lt;、lt、&gt;、gt、&lt;=、le、&gt;=、ge。可以与其他值进行比较，或与布尔型、字符串型、整型或浮点型文字进行比较。</td>
+</tr>
+<tr>
+<td>空</td>
+<td>empty 空操作符是前缀操作，可用于确定值是否为空。</td>
+</tr>
+<tr>
+<td>条件型</td>
+<td>A ?B :C。根据 A 赋值的结果来赋值 B 或 C。</td>
+</tr>
+</tbody></table>
+<h5 id="6-JSP-表达式语言定义可在表达式中使用的以下文字："><a href="#6-JSP-表达式语言定义可在表达式中使用的以下文字：" class="headerlink" title="6.JSP 表达式语言定义可在表达式中使用的以下文字："></a>6.JSP 表达式语言定义可在表达式中使用的以下文字：</h5><table>
+<thead>
+<tr>
+<th align="left">文字</th>
+<th align="left">文字的值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Boolean</td>
+<td align="left">true 和 false</td>
+</tr>
+<tr>
+<td align="left">Integer</td>
+<td align="left">与 Java 类似。可以包含任何整数，例如 24、-45、567</td>
+</tr>
+<tr>
+<td align="left">Floating Point</td>
+<td align="left">与 Java 类似。可以包含任何正的或负的浮点数，例如 -1.8E-45、4.567</td>
+</tr>
+<tr>
+<td align="left">String</td>
+<td align="left">任何由单引号或双引号限定的字符串。对于单引号、双引号和反斜杠，使用反斜杠字符作为转义序列。必须注意，如果在字符串两端使用双引号，则单引号不需要转义。</td>
+</tr>
+<tr>
+<td align="left">Null</td>
+<td align="left">null</td>
+</tr>
+</tbody></table>
+<h5 id="7-隐式对象"><a href="#7-隐式对象" class="headerlink" title="7.隐式对象"></a>7.隐式对象</h5><p>JSP 表达式语言定义了一组隐式对象，其中许多对象在 JSP scriplet 和表达式中可用：</p>
+<table>
+<thead>
+<tr>
+<th>pageContext</th>
+<th>JSP 页的上下文。它可以用于访问 JSP 隐式对象，如请求、响应、会话、输出、servletContext 等。例如，${pageContext.response} 为页面的响应对象赋值。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>此外，还提供几个隐式对象，允许对以下对象进行简易访问：</p>
+<table>
+<thead>
+<tr>
+<th align="left">术语</th>
+<th align="left">定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">param</td>
+<td align="left">将请求参数名称映射到单个字符串参数值（通过调用 ServletRequest.getParameter (String name) 获得）。getParameter (String) 方法返回带有特定名称的参数。表达式 ${param . name}相当于 request.getParameter (name)。</td>
+</tr>
+<tr>
+<td align="left">paramValues</td>
+<td align="left">将请求参数名称映射到一个数值数组（通过调用 ServletRequest.getParameter (String name) 获得）。它与 param 隐式对象非常类似，但它检索一个字符串数组而不是单个值。表达式 ${paramvalues. name} 相当于 request.getParamterValues(name)。</td>
+</tr>
+<tr>
+<td align="left">header</td>
+<td align="left">将请求头名称映射到单个字符串头值（通过调用 ServletRequest.getHeader(String name) 获得）。表达式 ${header. name} 相当于 request.getHeader(name)。</td>
+</tr>
+<tr>
+<td align="left">headerValues</td>
+<td align="left">将请求头名称映射到一个数值数组（通过调用 ServletRequest.getHeaders(String) 获得）。它与头隐式对象非常类似。表达式 ${headerValues. name} 相当于 request.getHeaderValues(name)。</td>
+</tr>
+<tr>
+<td align="left">cookie</td>
+<td align="left">将 cookie 名称映射到单个 cookie 对象。向服务器发出的客户端请求可以获得一个或多个 cookie。表达式 ${cookie. name .value} 返回带有特定名称的第一个 cookie 值。如果请求包含多个同名的 cookie，则应该使用 ${headerValues. name} 表达式。</td>
+</tr>
+<tr>
+<td align="left">initParam</td>
+<td align="left">将上下文初始化参数名称映射到单个值（通过调用 ServletContext.getInitparameter(String name) 获得）。</td>
+</tr>
+</tbody></table>
+<p>除了上述两种类型的隐式对象之外，还有些对象允许访问多种范围的变量，如 Web 上下文、会话、请求、页面：</p>
+<table>
+<thead>
+<tr>
+<th align="left">术语</th>
+<th align="left">定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">pageScope</td>
+<td align="left">将页面范围的变量名称映射到其值。例如，EL 表达式可以使用 ${pageScope.objectName} 访问一个 JSP 中页面范围的对象，还可以使用 ${pageScope .objectName. attributeName} 访问对象的属性。</td>
+</tr>
+<tr>
+<td align="left">requestScope</td>
+<td align="left">将请求范围的变量名称映射到其值。该对象允许访问请求对象的属性。例如，EL 表达式可以使用 ${requestScope. objectName} 访问一个 JSP 请求范围的对象，还可以使用 ${requestScope. objectName. attributeName} 访问对象的属性。</td>
+</tr>
+<tr>
+<td align="left">sessionScope</td>
+<td align="left">将会话范围的变量名称映射到其值。该对象允许访问会话对象的属性。例如： ${sessionScope. name}</td>
+</tr>
+<tr>
+<td align="left">applicationScope</td>
+<td align="left">将应用程序范围的变量名称映射到其值。该隐式对象允许访问应用程序范围的对象。</td>
+</tr>
+</tbody></table>
+<h5 id="8-EL语法"><a href="#8-EL语法" class="headerlink" title="8.EL语法"></a>8.EL语法</h5><p>在JSP中访问模型对象是通过EL表达式的语法来表达。所有EL表达式的格式都是以“${}”表示。例如，${ userinfo}代表获取变量userinfo的值。当EL表达式中的变量不给定范围时，则默认在page范围查找，然后依次在request、session、application范围查找。也可以用范围作为前缀表示属于哪个范围的变量，例如：${ pageScope. userinfo}表示访问page范围中的userinfo变量。</p>
+<h5 id="9-与-运算符"><a href="#9-与-运算符" class="headerlink" title="9.[ ]与.运算符"></a>9.[ ]与.运算符</h5><p>EL 提供“.“和“[ ]“两种运算符来存取数据。</p>
+<p>当要存取的属性名称中包含一些特殊字符，如 . 或 - 等并非字母或数字的符号，就一定要使用“[ ]“。例如：</p>
+<p>${ user. My-Name}应当改为${user[“My-Name”]}</p>
+<p>如果要动态取值时，就可以用“[ ]“来做，而“.“无法做到动态取值。例如：</p>
+<p>${sessionScope.user[data]}中data 是一个变量。</p>
 	
 	</div>
 	
@@ -399,12 +507,12 @@
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
 		
-			<a href="/2019/11/03/Android%E5%9F%BA%E6%9C%AC%E5%B8%83%E5%B1%80/" title="Android基本布局" rel="prev">
+			<a href="/2019/11/26/JSTL/" title="JSTL" rel="prev">
 				&laquo;Pre post
 			</a>
 		
 		
-			<a href="/2019/10/31/SQL%E9%AB%98%E7%BA%A7%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL高级子查询" rel="next">
+			<a href="/2019/11/20/%E7%94%A8servlet%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95/" title="用servlet实现登录" rel="next">
 				Next post&raquo;
 			</a>
 			
@@ -512,30 +620,6 @@
 							<a href="/2019/11/26/JSTL/" title="JSTL">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="JSTL"/>
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/11/25/EL%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="EL表达式">
-								EL表达式			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								十一月 25日, 2019				
-							</p>
-							<p class="relate-post-content">
-								EL(Expression  Language)1.简介EL是为了使JSP写起来更加简单。表达式语言的灵感来自于 ECMAScript 和 XPath 表达式语言，它提供了在 JSP 中简化表达式的方法，让Jsp的代码更加简化。
-2....
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/11/25/EL%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="EL表达式">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="EL表达式"/>
 							</a>
 						</div>
 					</li>											
@@ -655,6 +739,31 @@
 							<a href="/2019/11/03/Android%E5%9F%BA%E6%9C%AC%E5%B8%83%E5%B1%80/" title="Android基本布局">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Android基本布局"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" title="jsp对象">
+								jsp对象			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 1日, 2019				
+							</p>
+							<p class="relate-post-content">
+								1.request对象(1)request对象是http请求的代表
+requset对象是ServletRequset的一个实例。当客户端请求一个JPS网页时，JPS引擎会将客户的请求信息包装在这个request对象中。
+(2)requ...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" title="jsp对象">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="jsp对象"/>
 							</a>
 						</div>
 					</li>											

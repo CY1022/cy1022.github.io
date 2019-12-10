@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      jsp对象 | Hexo
+      limit用法及jstl标签使用 | Hexo
     
   </title>
   <meta name="author" content="John Doe">
@@ -160,7 +160,7 @@
 	<!-- Page title -->
 	<p>
 		
-			Current post&nbsp;:&nbsp;《jsp对象》
+			Current post&nbsp;:&nbsp;《limit用法及jstl标签使用》
 		
 	</p>
 
@@ -277,8 +277,8 @@
 	<div class="article-title">
 		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
 		
-	<a href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" itemprop="url">
-		jsp对象
+	<a href="/2019/12/10/limit%E7%94%A8%E6%B3%95%E5%8F%8Ajstl%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8/" itemprop="url">
+		limit用法及jstl标签使用
 	</a>
 
 	</div>
@@ -291,9 +291,9 @@
 
 	Posted on
 
-	<a href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" itemprop="url">
-		<time datetime="2019-10-31T16:00:00.000Z" itemprop="datePublished">
-	  		2019-11-01
+	<a href="/2019/12/10/limit%E7%94%A8%E6%B3%95%E5%8F%8Ajstl%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8/" itemprop="url">
+		<time datetime="2019-12-10T02:13:44.977Z" itemprop="datePublished">
+	  		2019-12-10
 	  </time>
 	</a>
 	&nbsp;
@@ -309,8 +309,8 @@
 
 	Updated on
 
-	<a href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" itemprop="url">
-		<time datetime="2019-10-31T16:00:00.000Z" itemprop="dateUpdated">
+	<a href="/2019/12/10/limit%E7%94%A8%E6%B3%95%E5%8F%8Ajstl%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8/" itemprop="url">
+		<time datetime="2019-12-10T02:13:44.977Z" itemprop="dateUpdated">
 	  		2019-12-10
 	  </time>
 	</a> 
@@ -330,57 +330,359 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<h3 id="1-request对象"><a href="#1-request对象" class="headerlink" title="1.request对象"></a>1.request对象</h3><p>(1)request对象是http请求的代表</p>
-<p>requset对象是ServletRequset的一个实例。当客户端请求一个JPS网页时，JPS引擎会将客户的请求信息包装在这个request对象中。</p>
-<p>(2)request对象的方法</p>
-<p>request内置对象代表了客户端的请求信息，他的各个功能都封装在其他方法中。</p>
-<p>request对象方法：</p>
+		<p>title: limit用法及jstl标签使用<br>date: 2019-12-03</p>
+<h4 id="1-limit用法"><a href="#1-limit用法" class="headerlink" title="1.limit用法"></a>1.limit用法</h4><p> limit子句用于限制查询结果返回的数量。 </p>
+<h5 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">【select * from limit tableName limit i,n 】</span><br></pre></td></tr></table></figure>
+
+<h5 id="参数"><a href="#参数" class="headerlink" title="参数:"></a>参数:</h5><ul>
+<li>tableName : 为数据表；</li>
+<li>i : 为查询结果的索引值（默认从0开始）；</li>
+<li>n : 为查询结果返回的数量</li>
+</ul>
+<h5 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h5><p>(1)查询student的数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from student</span><br></pre></td></tr></table></figure>
+
+<p>(2)查询第一条数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from student limit 1</span><br></pre></td></tr></table></figure>
+
+<p>(3)查询第二条数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from student limit 1,1</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-jstl的使用"><a href="#2-jstl的使用" class="headerlink" title="2.jstl的使用"></a>2.jstl的使用</h4><p>(1)核心标签</p>
 <table>
 <thead>
 <tr>
-<th>getHeader(String name)</th>
-<th>获得http协议定义的传送文件头信息。</th>
+<th>标签</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>getHeaderNames()</td>
-<td>返回所有request header的名字，结果集是一个Enumeration(枚举)类的实例。</td>
+<td>&lt;c:out&gt;</td>
+<td>用于在JSP中显示数据，就像&lt;%=…&gt;</td>
 </tr>
 <tr>
-<td>getRemoteAddr()</td>
-<td>获得客户端的IP地址。</td>
+<td>&lt;c:set&gt;</td>
+<td>用于保存数据</td>
 </tr>
 <tr>
-<td>isSecure()</td>
-<td>如果客户机是通过一个安全的访问方式访问的，就返回true，反之，返回false。</td>
+<td>&lt;c:remove&gt;</td>
+<td>用于删除数据</td>
 </tr>
 <tr>
-<td>getCookies()</td>
-<td>返回客户端的cookie对象，结果是一个cookie数组。</td>
+<td>&lt;c:catch&gt;</td>
+<td>用来处理产生错误的异常状况，并且将错误信息存储起来</td>
 </tr>
 <tr>
-<td>getMethod()</td>
-<td>返回客户端向服务器端传送数据的方法，一般方法有get，post等类型。</td>
+<td>&lt;c:if&gt;</td>
+<td>与我们在一般程序中用的if一样</td>
 </tr>
 <tr>
-<td>getParameter(String name)</td>
-<td>以字符串的形式返回客户端传来的某一个请求参数的值，该参数名由name指定。当传递给此方法的参数名没有实际参数与之对应时，返回null。</td>
+<td>&lt;c:choose&gt;</td>
+<td>本身只当做&lt;c:when&gt;和&lt;c:otherwise&gt;的父标签</td>
 </tr>
 <tr>
-<td>getParameterNames()</td>
-<td>返回客户端传送给服务器端的所有参数名，结果集是Enumeration(枚举)类的实例。</td>
+<td>&lt;C:when&gt;</td>
+<td>&lt;c:choose&gt;的字标签，用来判断条件是否成立</td>
+</tr>
+<tr>
+<td>&lt;c:otherwise&gt;</td>
+<td>&lt;c:choose&gt;的字标签，接在&lt;c:when&gt;标签后，当&lt;c:when&gt;标签判断为false时被执行</td>
+</tr>
+<tr>
+<td>&lt;c:import&gt;</td>
+<td>检索一个绝对或相对URL，然后将其内容暴露给页面</td>
+</tr>
+<tr>
+<td>&lt;c:forEach&gt;</td>
+<td>基础迭代标签，接受多种集合类型</td>
+</tr>
+<tr>
+<td>&lt;c:forTokens&gt;</td>
+<td>根据指定的分隔符来分隔内容并迭代输出</td>
+</tr>
+<tr>
+<td>&lt;c:param&gt;</td>
+<td>用来给包含或重定向的页面传递参数</td>
+</tr>
+<tr>
+<td>&lt;c:redirect&gt;</td>
+<td>重定向至一个新的URL</td>
+</tr>
+<tr>
+<td>&lt;c:url&gt;</td>
+<td>使用可选的查询参数来创造一个URL</td>
 </tr>
 </tbody></table>
-<h3 id="2-response对象"><a href="#2-response对象" class="headerlink" title="2.response对象"></a>2.response对象</h3><p>实例：</p>
-<p>用户登录页面</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> <span class="keyword">import</span>=<span class="string">"java.util.*"</span> pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;!DOCTYPE HTML PUBLIC <span class="string">"-//W3C//DTD HTML 4.01 Transitional//EN"</span>&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;title&gt;用户登录&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;body&gt;</span><br><span class="line">		&lt;form name=<span class="string">"form1"</span> method=post action=<span class="string">"control.jsp"</span>&gt;</span><br><span class="line">			用户名：&lt;input type=<span class="string">"text"</span> name=<span class="string">"userName"</span>&gt;</span><br><span class="line">			密码：&lt;input type=<span class="string">"password"</span> name=<span class="string">"pwd"</span>&gt;</span><br><span class="line">			&lt;input type=<span class="string">"submit"</span> value=<span class="string">"登录"</span>&gt;</span><br><span class="line">		&lt;/form&gt;</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>登录处理页面</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span>  pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;title&gt;登录处理页面&lt;/title&gt;</span><br><span class="line">	&lt;/head&gt;</span><br><span class="line">	&lt;body&gt;</span><br><span class="line">	&lt;%</span><br><span class="line">		request.setCharacterEncoding(<span class="string">"UTF-8"</span>);</span><br><span class="line">		<span class="comment">//request.getParameter("username")可以接受到表单传递的username参数，对应jsp表单的input的name是username的表单。</span></span><br><span class="line">		String name = request.getParameter(<span class="string">"userName"</span>);</span><br><span class="line">		<span class="comment">//request.getParameter("password")可以接受到表单传递的password参数，对应jsp表单的input的name是password的表单。</span></span><br><span class="line">		String pwd = request.getParameter(<span class="string">"pwd"</span>);</span><br><span class="line">        </span><br><span class="line">		<span class="keyword">if</span>(<span class="string">"sa"</span>.equals(name)&amp;&amp;<span class="string">"sa"</span>.equals(pwd))&#123;</span><br><span class="line">	 		response.sendRedirect(<span class="string">"welcome.jsp"</span>);</span><br><span class="line">		&#125; </span><br><span class="line">	%&gt;</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>欢迎页面</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;title&gt;欢迎页面&lt;/title&gt;</span><br><span class="line">	&lt;/head&gt;</span><br><span class="line">	&lt;body&gt;</span><br><span class="line">		欢迎进入本页面！</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
+<p>1)out标签的属性</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+<th>是否必要</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>value</td>
+<td>要输出的内容</td>
+<td>是</td>
+<td>无</td>
+</tr>
+<tr>
+<td>default</td>
+<td>输出的默认值</td>
+<td>否</td>
+<td>主体中的内容</td>
+</tr>
+<tr>
+<td>escapeXml</td>
+<td>是否忽略XML特殊字符</td>
+<td>否</td>
+<td>true</td>
+</tr>
+</tbody></table>
+<p>2)set标签的属性</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+<th>是否必要</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>value</td>
+<td>要存储的值</td>
+<td>否</td>
+<td>主体中的内容</td>
+</tr>
+<tr>
+<td>target</td>
+<td>要修改的属性所属的对象</td>
+<td>否</td>
+<td>无</td>
+</tr>
+<tr>
+<td>property</td>
+<td>要修改的的属性</td>
+<td>否</td>
+<td>无</td>
+</tr>
+<tr>
+<td>var</td>
+<td>存储信息的变量</td>
+<td>否</td>
+<td>无</td>
+</tr>
+<tr>
+<td>scope</td>
+<td>var属性的作用域</td>
+<td>否</td>
+<td>page</td>
+</tr>
+</tbody></table>
+<p>3)remove标签的属性</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+<th>是否必要</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>var</td>
+<td>要移出的变量名称</td>
+<td>是</td>
+<td>无</td>
+</tr>
+<tr>
+<td>scope</td>
+<td>变量所属的作用域</td>
+<td>否</td>
+<td>所有作用域</td>
+</tr>
+</tbody></table>
+<p>4)catch标签的属性</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+<th>是否必要</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>var</td>
+<td>用来存储错误信息的变量</td>
+<td>否</td>
+<td>None</td>
+</tr>
+</tbody></table>
+<p>5)choose，when，otherwise标签的属性</p>
+<p>这三个有点类似switch case default。</p>
+<p>choose：本身只当做&lt; c:when&gt;和&lt; c:otherwise&gt;的父标签。</p>
+<p>when：&lt; c:choose&gt;的子标签，用来判断条件是否成立。</p>
+<p>otherwise：&lt; c:choose&gt;的子标签，接在&lt; c:when&gt;标签后，当&lt; c:when&gt;标签判断为false时被执行。</p>
+<p>(2)SQL标签</p>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="sql:setDataSourse" target="_blank" rel="noopener">sql:setDataSourse</a></td>
+<td>指定数据源</td>
+</tr>
+<tr>
+<td><a href="sql:query" target="_blank" rel="noopener">sql:query</a></td>
+<td>运行SQL查询语句</td>
+</tr>
+<tr>
+<td><a href="sql:update" target="_blank" rel="noopener">sql:update</a></td>
+<td>运行SQL更新语句</td>
+</tr>
+<tr>
+<td><a href="sql:param" target="_blank" rel="noopener">sql:param</a></td>
+<td>将SQL语句中的参数设为指定值</td>
+</tr>
+<tr>
+<td><a href="sql:dateParam" target="_blank" rel="noopener">sql:dateParam</a></td>
+<td>将SQL语句中的日期参数设为指定的java.util.Date对象值</td>
+</tr>
+<tr>
+<td><a href="sql:transaction" target="_blank" rel="noopener">sql:transaction</a></td>
+<td>在共享数据库连接中提供嵌套的数据行为元素，将所有语句以一个事物的形式来运行</td>
+</tr>
+</tbody></table>
+<p>(3)XML标签</p>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt;x:out&gt;</td>
+<td>与&lt;%=…&gt;,类似，不过只用于XPath表达式</td>
+</tr>
+<tr>
+<td>&lt;x:parse&gt;</td>
+<td>解析XML数据</td>
+</tr>
+<tr>
+<td>&lt;x:set&gt;</td>
+<td>设置XPath表达式</td>
+</tr>
+<tr>
+<td>&lt;x:if&gt;</td>
+<td>判断XPah表达式，若为真，则执行本体中的内容，否则跳过本体</td>
+</tr>
+<tr>
+<td>&lt;x:forEach&gt;</td>
+<td>迭代XML文档中的节点</td>
+</tr>
+<tr>
+<td>&lt;x:choose&gt;</td>
+<td>&lt;x:when&gt;和&lt;x:otherwise&gt;的父标签</td>
+</tr>
+<tr>
+<td>&lt;x:when&gt;</td>
+<td>&lt;x:choose&gt;的子标签，用来进行条件判断</td>
+</tr>
+<tr>
+<td>&lt;x:otherwise&gt;</td>
+<td>&lt;x:choose&gt;的子标签，当&lt;x:when&gt;判断为false时被执行</td>
+</tr>
+<tr>
+<td>&lt;x:transform&gt;</td>
+<td>将XSL转换应用在XML文档中</td>
+</tr>
+<tr>
+<td>&lt;x:param&gt;</td>
+<td>与&lt;x:transform&gt;共同使用，用于设置XSL样式表</td>
+</tr>
+</tbody></table>
+<p>(4)JSTL函数</p>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="fn:contains()" target="_blank" rel="noopener">fn:contains()</a></td>
+<td>测试输入的字符串是否包含指定的子串</td>
+</tr>
+<tr>
+<td><a href="fn:containslgnoreCase()" target="_blank" rel="noopener">fn:containslgnoreCase()</a></td>
+<td>测试输入的字符串是否包含指定的子串，大小写不敏感</td>
+</tr>
+<tr>
+<td><a href="fn:endsWith()" target="_blank" rel="noopener">fn:endsWith()</a></td>
+<td>测试输入的字符串是否以指定的后缀结尾</td>
+</tr>
+<tr>
+<td><a href="fn:escapeXml()" target="_blank" rel="noopener">fn:escapeXml()</a></td>
+<td>跳过可以作为XML标记的字符</td>
+</tr>
+<tr>
+<td><a href="fn:indexOf()" target="_blank" rel="noopener">fn:indexOf()</a></td>
+<td>返回指定字符串在输入字符串中出现的位置</td>
+</tr>
+<tr>
+<td><a href="fn:join()" target="_blank" rel="noopener">fn:join()</a></td>
+<td>将数组中的元素合成一个字符串然后输出</td>
+</tr>
+<tr>
+<td><a href="fn:length()" target="_blank" rel="noopener">fn:length()</a></td>
+<td>返回字符串长度</td>
+</tr>
+<tr>
+<td><a href="fn:replace()" target="_blank" rel="noopener">fn:replace()</a></td>
+<td>将字符串用指定的位置替换为指定的字符串然后返回</td>
+</tr>
+<tr>
+<td><a href="fn:split()" target="_blank" rel="noopener">fn:split()</a></td>
+<td>将字符串用指定的分隔符分隔然后组成一个子字符串数组并返回</td>
+</tr>
+<tr>
+<td><a href="fn:startsWith()" target="_blank" rel="noopener">fn:startsWith()</a></td>
+<td>测试输入字符串是否指定的前缀开始</td>
+</tr>
+<tr>
+<td><a href="fn:substring()" target="_blank" rel="noopener">fn:substring()</a></td>
+<td>返回字符串的子集</td>
+</tr>
+<tr>
+<td><a href="fn:substringAfter()" target="_blank" rel="noopener">fn:substringAfter()</a></td>
+<td>返回字符串在指定字串之后的子集</td>
+</tr>
+<tr>
+<td><a href="fn:substringBefore()" target="_blank" rel="noopener">fn:substringBefore()</a></td>
+<td>返回字符串在指定字串之前的子集</td>
+</tr>
+<tr>
+<td><a href="fn:toLowerCase()" target="_blank" rel="noopener">fn:toLowerCase()</a></td>
+<td>将字符串的字符转为小写</td>
+</tr>
+<tr>
+<td><a href="fn:toUpperCase()" target="_blank" rel="noopener">fn:toUpperCase()</a></td>
+<td>将字符串的字符转为大写</td>
+</tr>
+<tr>
+<td><a href="fn:trim()" target="_blank" rel="noopener">fn:trim()</a></td>
+<td>移除首位的空白符</td>
+</tr>
+</tbody></table>
 	
 	</div>
 	
@@ -399,12 +701,12 @@
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
 		
-			<a href="/2019/11/03/Android%E5%9F%BA%E6%9C%AC%E5%B8%83%E5%B1%80/" title="Android基本布局" rel="prev">
+			<a href="/2019/12/10/%E7%94%A8Servlet%E5%AE%9E%E7%8E%B0%E6%B3%A8%E5%86%8C%E7%9A%84%E5%8A%9F%E8%83%BD/" title="用Servlet实现注册的功能" rel="prev">
 				&laquo;Pre post
 			</a>
 		
 		
-			<a href="/2019/10/31/SQL%E9%AB%98%E7%BA%A7%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL高级子查询" rel="next">
+			<a href="/2019/12/05/Jsp%E5%AE%9E%E7%8E%B0%E6%89%BE%E5%9B%9E%E5%AF%86%E7%A0%81%E7%9A%84%E5%8A%9F%E8%83%BD/" title="Jsp实现找回密码的功能" rel="next">
 				Next post&raquo;
 			</a>
 			
@@ -441,31 +743,6 @@
 							<a href="/2019/12/10/%E7%94%A8Servlet%E5%AE%9E%E7%8E%B0%E6%B3%A8%E5%86%8C%E7%9A%84%E5%8A%9F%E8%83%BD/" title="用Servlet实现注册的功能">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="用Servlet实现注册的功能"/>
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/12/10/limit%E7%94%A8%E6%B3%95%E5%8F%8Ajstl%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8/" title="limit用法及jstl标签使用">
-								limit用法及jstl标签使用			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								十二月 10日, 2019				
-							</p>
-							<p class="relate-post-content">
-								title: limit用法及jstl标签使用date: 2019-12-03
-1.limit用法 limit子句用于限制查询结果返回的数量。 
-用法1【select * from limit tableName limit i,n ...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/12/10/limit%E7%94%A8%E6%B3%95%E5%8F%8Ajstl%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8/" title="limit用法及jstl标签使用">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="limit用法及jstl标签使用"/>
 							</a>
 						</div>
 					</li>											
@@ -655,6 +932,31 @@
 							<a href="/2019/11/03/Android%E5%9F%BA%E6%9C%AC%E5%B8%83%E5%B1%80/" title="Android基本布局">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Android基本布局"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" title="jsp对象">
+								jsp对象			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 1日, 2019				
+							</p>
+							<p class="relate-post-content">
+								1.request对象(1)request对象是http请求的代表
+requset对象是ServletRequset的一个实例。当客户端请求一个JPS网页时，JPS引擎会将客户的请求信息包装在这个request对象中。
+(2)requ...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" title="jsp对象">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="jsp对象"/>
 							</a>
 						</div>
 					</li>											

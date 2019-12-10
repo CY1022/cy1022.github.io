@@ -1,0 +1,999 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      用servlet实现登录 | Hexo
+    
+  </title>
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="normal" data-normal-src="/img/1.jpg" data-random-max="110" data-random-src="https://sariay.github.io/Random-img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/logo.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home">Home</a>
+		</li>
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive">Archive</a>
+		</li>
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories">Category</a>
+		</li>
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags">Tag</a>
+		</li>
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about">About</a>
+		</li>
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery">Gallery</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" target="_blank" id="time_is_link" rel="nofollow noopener" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《用servlet实现登录》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home">Home</a>
+		</li>
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive">Archive</a>
+		</li>
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories">Category</a>
+		</li>
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags">Tag</a>
+		</li>
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about">About</a>
+		</li>
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery">Gallery</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2019/11/20/%E7%94%A8servlet%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95/" itemprop="url">
+		用servlet实现登录
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2019/11/20/%E7%94%A8servlet%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95/" itemprop="url">
+		<time datetime="2019-11-19T16:00:00.000Z" itemprop="datePublished">
+	  		2019-11-20
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2019/11/20/%E7%94%A8servlet%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95/" itemprop="url">
+		<time datetime="2019-11-19T16:00:00.000Z" itemprop="dateUpdated">
+	  		2019-12-10
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+					
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h5 id="1-首先写个登录界面-index-jsp-也可以自己写个好看的界面"><a href="#1-首先写个登录界面-index-jsp-也可以自己写个好看的界面" class="headerlink" title="1.首先写个登录界面 index.jsp (也可以自己写个好看的界面)"></a>1.首先写个登录界面 index.jsp (也可以自己写个好看的界面)</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> <span class="keyword">import</span>=<span class="string">"java.util.*"</span> pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;%</span><br><span class="line">	String path = request.getContextPath();</span><br><span class="line">	String basePath = request.getScheme() + <span class="string">"://"</span></span><br><span class="line">			+ request.getServerName() + <span class="string">":"</span> + request.getServerPort()</span><br><span class="line">			+ path + <span class="string">"/"</span>;</span><br><span class="line">%&gt;</span><br><span class="line">#big a.btn&#123;</span><br><span class="line">		display: block;</span><br><span class="line">		width: <span class="number">300</span>px;</span><br><span class="line">		height: <span class="number">50</span>px;</span><br><span class="line">		text-decoration: none;</span><br><span class="line">		background: #FFFFFF;</span><br><span class="line">		border: #6495ED solid 1px;</span><br><span class="line">		color: #6495ED;</span><br><span class="line">		border-radius: <span class="number">5</span>px;</span><br><span class="line">		font-size: <span class="number">18</span>px;</span><br><span class="line">		margin-top: <span class="number">20</span>px;</span><br><span class="line">		text-align: center;</span><br><span class="line">		line-height: <span class="number">50</span>px;</span><br><span class="line">	&#125;</span><br><span class="line">	#big a.btn:hover&#123;</span><br><span class="line">		background: #6495ED;</span><br><span class="line">		color: #FFFFFF;</span><br><span class="line">	&#125;</span><br><span class="line">	#big a.set&#123;</span><br><span class="line">		display: block;</span><br><span class="line">		width: <span class="number">300</span>px;</span><br><span class="line">		height: <span class="number">50</span>px;</span><br><span class="line">		text-decoration: none;</span><br><span class="line">		background: #FFFFFF;</span><br><span class="line">		border: #A9A9A9 solid 1px;</span><br><span class="line">		color: #A9A9A9;</span><br><span class="line">		border-radius: <span class="number">5</span>px;</span><br><span class="line">		font-size: <span class="number">18</span>px;</span><br><span class="line">		margin-top: <span class="number">20</span>px;</span><br><span class="line">		text-align: center;</span><br><span class="line">		line-height: <span class="number">50</span>px;</span><br><span class="line">	&#125;</span><br><span class="line">	#big a.set:hover&#123;</span><br><span class="line">		background: #A9A9A9;</span><br><span class="line">		color: #FFFFFF;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;form action=<span class="string">"&lt;%=basePath%&gt;/servlet/UserLoginServlet"</span> method=<span class="string">"post"</span> id=<span class="string">"big"</span>&gt;</span><br><span class="line">		&lt;input type=<span class="string">"text"</span> name=<span class="string">"name"</span> id=<span class="string">"name"</span> placeholder=<span class="string">"请输入用户名"</span> /&gt;</span><br><span class="line">		&lt;input type=<span class="string">"password"</span> name=<span class="string">"password"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"pwd"</span> placeholder=<span class="string">"请输入密码"</span> /&gt;</span><br><span class="line">		&lt;input type=<span class="string">"submit"</span> value=<span class="string">"登录"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"sub"</span>/&gt;</span><br><span class="line">		&lt;hr /&gt;</span><br><span class="line">		&lt;a href="register.jsp" class="btn"&gt;还没有账号？免费注册&lt;/a&gt;</span><br><span class="line">		&lt;a href="register.jsp" class="set"&gt;忘记密码？重置&lt;/a&gt;</span><br><span class="line">	&lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-连接数据库JdbcUtil-java（需要自己创建数据库）"><a href="#2-连接数据库JdbcUtil-java（需要自己创建数据库）" class="headerlink" title="2.连接数据库JdbcUtil.java（需要自己创建数据库）"></a>2.连接数据库JdbcUtil.java（需要自己创建数据库）</h5><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dzqc.login;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.PreparedStatement;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdbcUtil</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String driver = <span class="string">"com.mysql.jdbc.Driver"</span>;<span class="comment">// 数据库驱动类</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String url = <span class="string">"jdbc:mysql://localhost:3306/usermanager"</span>;<span class="comment">// 数据库链接 usermanager是你自己的数据库名 要注意localhost:3306可能会不一样</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String user = <span class="string">"root"</span>;<span class="comment">// 数据库用户名</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String password = <span class="string">"111111"</span>;<span class="comment">// 数据库密码</span></span><br><span class="line"><span class="comment">/***</span></span><br><span class="line"><span class="comment"> * 连接数据库的方法</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> ClassNotFoundException</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> SQLException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getCon</span><span class="params">()</span> <span class="keyword">throws</span> ClassNotFoundException,</span></span><br><span class="line"><span class="function">		SQLException </span>&#123;</span><br><span class="line">	Class.forName(driver);<span class="comment">// 加载数据库驱动</span></span><br><span class="line">	Connection con = DriverManager.getConnection(url, user, password);</span><br><span class="line">	<span class="keyword">return</span> con;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/***</span></span><br><span class="line"><span class="comment"> * 关闭数据库的方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">(Connection con, PreparedStatement ps, ResultSet rs)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (rs != <span class="keyword">null</span>) &#123;<span class="comment">// 关闭资源，避免出现异常</span></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			rs.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (ps != <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			ps.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (con != <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			con.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/***</span></span><br><span class="line"><span class="comment"> * 同意增删改的方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">addUpdateDelete</span><span class="params">(String sql, Object[] arr)</span> </span>&#123;</span><br><span class="line">	Connection con = <span class="keyword">null</span>;</span><br><span class="line">	PreparedStatement ps = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="comment">// 1.连接数据库的操作</span></span><br><span class="line">		con = JdbcUtil.getCon();</span><br><span class="line">		<span class="comment">// 2.预编译</span></span><br><span class="line">		ps = con.prepareStatement(sql);</span><br><span class="line">		<span class="comment">// 3.设置值</span></span><br><span class="line">		<span class="keyword">if</span> (arr != <span class="keyword">null</span> &amp;&amp; arr.length != <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">				ps.setObject(i + <span class="number">1</span>, arr[i]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//4.执行sql语句</span></span><br><span class="line">		<span class="keyword">int</span> count = ps.executeUpdate();</span><br><span class="line">		<span class="keyword">if</span> (count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br><span class="line">                &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-创建User-java对用户的信息进行封装（封装的信息要跟数据库中的字段相同）"><a href="#3-创建User-java对用户的信息进行封装（封装的信息要跟数据库中的字段相同）" class="headerlink" title="3.创建User.java对用户的信息进行封装（封装的信息要跟数据库中的字段相同）"></a>3.创建User.java对用户的信息进行封装（封装的信息要跟数据库中的字段相同）</h5><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dzqc.login;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> Integer id;</span><br><span class="line"><span class="keyword">private</span> String username;</span><br><span class="line"><span class="keyword">private</span> String password;</span><br><span class="line"><span class="keyword">private</span> String email;</span><br><span class="line"><span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> id;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.id = id;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getUserName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> username;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserName</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.username = username;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getPassword</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> password;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword</span><span class="params">(String password)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.password = password;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getEmail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> email;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEmail</span><span class="params">(String email)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.email = email;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getPhone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> phone;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPhone</span><span class="params">(String phone)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.phone = phone;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 重写toString 方法</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"User [id="</span> + id + <span class="string">", username="</span> + username + <span class="string">", password="</span> + password</span><br><span class="line">			+ <span class="string">", email="</span> + email + <span class="string">", phone="</span> + phone + <span class="string">"]"</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="4-创建servlet类UserLoginServlet-java"><a href="#4-创建servlet类UserLoginServlet-java" class="headerlink" title="4.创建servlet类UserLoginServlet.java"></a>4.创建servlet类UserLoginServlet.java</h5><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dzqc.login;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserLoginServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">		HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.doPost(request, response);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">		HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">	User user = <span class="keyword">new</span> User();</span><br><span class="line">	<span class="comment">// 获取index.jsp页面提交的账号和密码</span></span><br><span class="line">	String name = request.getParameter(<span class="string">"name"</span>);</span><br><span class="line">	String password = request.getParameter(<span class="string">"password"</span>);</span><br><span class="line">	<span class="comment">// 测试数据</span></span><br><span class="line">	System.out.println(name + <span class="string">" "</span> + password);</span><br><span class="line">	<span class="comment">// 获取login.jsp页面提交的账号和密码设置到实体类User中</span></span><br><span class="line">	user.setUserName(name);</span><br><span class="line">	user.setPassword(password);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 引入数据交互层</span></span><br><span class="line">	UserService userService = <span class="keyword">new</span> UserServiceImpl();</span><br><span class="line">	User us = userService.login(user);</span><br><span class="line">	<span class="comment">// 测试返回的值</span></span><br><span class="line">	System.out.println(us);</span><br><span class="line">	<span class="keyword">if</span> (us != <span class="keyword">null</span>) &#123;</span><br><span class="line">		System.out.println(<span class="string">"登陆成功"</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"登录失败"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="5-创建接口UserServlet-java"><a href="#5-创建接口UserServlet-java" class="headerlink" title="5.创建接口UserServlet.java"></a>5.创建接口UserServlet.java</h5><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dzqc.login;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"><span class="comment">/***</span></span><br><span class="line"><span class="comment"> * 用户登陆的方法声明</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">login</span><span class="params">(User user)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-创建实现接口类UserServletImpl-java"><a href="#6-创建实现接口类UserServletImpl-java" class="headerlink" title="6.创建实现接口类UserServletImpl.java"></a>6.创建实现接口类UserServletImpl.java</h5><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dzqc.login;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.PreparedStatement;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">login</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">	Connection con = <span class="keyword">null</span>;</span><br><span class="line">	PreparedStatement ps = <span class="keyword">null</span>;</span><br><span class="line">	ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="comment">// 1.获取数据库的连接</span></span><br><span class="line">		con = JdbcUtil.getCon();</span><br><span class="line">		<span class="comment">// 2.书写sql语句</span></span><br><span class="line">		String sql = <span class="string">"select * from user where username=? and password=? "</span>;</span><br><span class="line">		<span class="comment">// 3.预编译</span></span><br><span class="line">		ps = con.prepareStatement(sql);</span><br><span class="line">		<span class="comment">// 4.设置值</span></span><br><span class="line">		ps.setString(<span class="number">1</span>, user.getUserName());</span><br><span class="line">		ps.setString(<span class="number">2</span>, user.getPassword());</span><br><span class="line">		<span class="comment">// 5.执行sql语句</span></span><br><span class="line">		rs = ps.executeQuery();</span><br><span class="line">		User users = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">if</span> (rs.next()) &#123;</span><br><span class="line">			users = <span class="keyword">new</span> User();</span><br><span class="line">			<span class="comment">// 从数据库中获取值设置到实体类的setter方法中</span></span><br><span class="line">			users.setId(rs.getInt(<span class="string">"id"</span>));</span><br><span class="line">			users.setUserName(rs.getString(<span class="string">"username"</span>));</span><br><span class="line">			users.setPassword(rs.getString(<span class="string">"password"</span>));</span><br><span class="line">			users.setEmail(rs.getString(<span class="string">"email"</span>));</span><br><span class="line">			users.setPhone(rs.getString(<span class="string">"phone"</span>));</span><br><span class="line"></span><br><span class="line">			<span class="keyword">return</span> user;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="7-在WebContent下的WEB-INF中创建web-xml文件"><a href="#7-在WebContent下的WEB-INF中创建web-xml文件" class="headerlink" title="7.在WebContent下的WEB-INF中创建web.xml文件"></a>7.在WebContent下的WEB-INF中创建web.xml文件</h5><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;web-app xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> xmlns=<span class="string">"http://java.sun.com/xml/ns/javaee"</span> xsi:schemaLocation=<span class="string">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span> version=<span class="string">"3.0"</span>&gt;</span><br><span class="line">  &lt;servlet&gt;</span><br><span class="line">    &lt;description&gt;This is the description of my J2EE component&lt;/description&gt;</span><br><span class="line">    &lt;display-name&gt;This is the display name of my J2EE component&lt;/display-name&gt;</span><br><span class="line">    &lt;servlet-name&gt;UserLoginServlet&lt;/servlet-name&gt;</span><br><span class="line">    &lt;servlet-<span class="class"><span class="keyword">class</span>&gt;<span class="title">com</span>.<span class="title">dzqc</span>.<span class="title">login</span>.<span class="title">UserLoginServlet</span>&lt;/<span class="title">servlet</span>-<span class="title">class</span>&gt;</span></span><br><span class="line"><span class="class">  &lt;/<span class="title">servlet</span>&gt;</span></span><br><span class="line"><span class="class">  &lt;<span class="title">servlet</span>-<span class="title">mapping</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;<span class="title">servlet</span>-<span class="title">name</span>&gt;<span class="title">UserLoginServlet</span>&lt;/<span class="title">servlet</span>-<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;<span class="title">url</span>-<span class="title">pattern</span>&gt;/<span class="title">servlet</span>/<span class="title">UserLoginServlet</span>&lt;/<span class="title">url</span>-<span class="title">pattern</span>&gt;</span></span><br><span class="line"><span class="class">  &lt;/<span class="title">servlet</span>-<span class="title">mapping</span>&gt;</span></span><br><span class="line"><span class="class">&lt;/<span class="title">web</span>-<span class="title">app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<base href="<%=basePath%>">
+
+<title>My JSP 'index.jsp' starting page</title>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="This is my page">
+</head>
+<style>
+        #big{
+            margin: 100px auto;
+            width: 300px;
+        }
+        #name{
+            width: 300px;
+            height: 50px;
+            border-radius: 5px;
+            border: solid 1px darkgrey;
+            font-size: 16px;
+            color: #A9A9A9;
+            text-indent: 20px;
+        }
+        #big input.pwd{
+            width: 300px;
+            height: 50px;
+            border-radius: 5px;
+            border: solid 1px darkgrey;
+            font-size: 16px;
+            color: #A9A9A9;
+            text-indent: 20px;
+            margin-top: 20px;
+        }
+        #big input.sub{
+            width: 300px;
+            height: 50px;
+            border-radius: 5px;
+            border: none;
+            background: cornflowerblue;
+            font-size: 18px;
+            color: #ffffff;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }    
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2019/11/25/EL%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="EL表达式" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2019/11/11/eslipse%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/" title="eslipse配置数据库连接池" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/12/10/%E7%94%A8Servlet%E5%AE%9E%E7%8E%B0%E6%B3%A8%E5%86%8C%E7%9A%84%E5%8A%9F%E8%83%BD/" title="用Servlet实现注册的功能">
+								用Servlet实现注册的功能			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 10日, 2019				
+							</p>
+							<p class="relate-post-content">
+								1.首先我们写好注册页面的样式123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/12/10/%E7%94%A8Servlet%E5%AE%9E%E7%8E%B0%E6%B3%A8%E5%86%8C%E7%9A%84%E5%8A%9F%E8%83%BD/" title="用Servlet实现注册的功能">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="用Servlet实现注册的功能"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/12/10/limit%E7%94%A8%E6%B3%95%E5%8F%8Ajstl%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8/" title="limit用法及jstl标签使用">
+								limit用法及jstl标签使用			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 10日, 2019				
+							</p>
+							<p class="relate-post-content">
+								title: limit用法及jstl标签使用date: 2019-12-03
+1.limit用法 limit子句用于限制查询结果返回的数量。 
+用法1【select * from limit tableName limit i,n ...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/12/10/limit%E7%94%A8%E6%B3%95%E5%8F%8Ajstl%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8/" title="limit用法及jstl标签使用">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="limit用法及jstl标签使用"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/12/05/Jsp%E5%AE%9E%E7%8E%B0%E6%89%BE%E5%9B%9E%E5%AF%86%E7%A0%81%E7%9A%84%E5%8A%9F%E8%83%BD/" title="Jsp实现找回密码的功能">
+								Jsp实现找回密码的功能			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 5日, 2019				
+							</p>
+							<p class="relate-post-content">
+								1.首先我们写好忘记密码页面的样式1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/12/05/Jsp%E5%AE%9E%E7%8E%B0%E6%89%BE%E5%9B%9E%E5%AF%86%E7%A0%81%E7%9A%84%E5%8A%9F%E8%83%BD/" title="Jsp实现找回密码的功能">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Jsp实现找回密码的功能"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/11/26/JSTL/" title="JSTL">
+								JSTL			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 26日, 2019				
+							</p>
+							<p class="relate-post-content">
+								JSTL标签1.简介JSP标准标签库（JSP Standard Tag Library）是Java EE网络应用程序开发平台的组成部分。它在JSP规范的基础上，扩充了一个JSP的标签库来完成一些通用任务，比如XML数据处理、条件执行、...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/11/26/JSTL/" title="JSTL">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="JSTL"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/11/25/EL%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="EL表达式">
+								EL表达式			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 25日, 2019				
+							</p>
+							<p class="relate-post-content">
+								EL(Expression  Language)1.简介EL是为了使JSP写起来更加简单。表达式语言的灵感来自于 ECMAScript 和 XPath 表达式语言，它提供了在 JSP 中简化表达式的方法，让Jsp的代码更加简化。
+2....
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/11/25/EL%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="EL表达式">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="EL表达式"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/11/11/eslipse%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/" title="eslipse配置数据库连接池">
+								eslipse配置数据库连接池			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 11日, 2019				
+							</p>
+							<p class="relate-post-content">
+								Tomcat6的服务器配置文件放在 ${tomcat6}/conf 目录底下。我们可以在这里找到 server.xml 和 context.xml。当然，还有其他一些资源文件。但是在在本文中我们只用得上这两个，其他的就不介绍了。 
+1...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/11/11/eslipse%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/" title="eslipse配置数据库连接池">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="eslipse配置数据库连接池"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/11/08/cookie%E8%AE%B0%E4%BD%8F%E5%AF%86%E7%A0%81%E6%A1%88%E4%BE%8B/" title="cookie记住密码案例">
+								cookie记住密码案例			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 8日, 2019				
+							</p>
+							<p class="relate-post-content">
+								用户登录
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/11/08/cookie%E8%AE%B0%E4%BD%8F%E5%AF%86%E7%A0%81%E6%A1%88%E4%BE%8B/" title="cookie记住密码案例">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="cookie记住密码案例"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/11/05/%E4%BC%9A%E8%AF%9D%E8%B7%9F%E8%B8%AA%E6%8A%80%E6%9C%AF/" title="会话跟踪技术">
+								会话跟踪技术			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 5日, 2019				
+							</p>
+							<p class="relate-post-content">
+								会话跟踪技术1.概念：在JavaWeb中，客户向某一服务器发出第一个请求开始，会话就开始了，直到客户关闭了浏览器会话结束。
+在一个会话的多个请求中共享数据，这就是会话跟踪技术。
+2.会话跟踪技术的使用在HTTP协议中可以使用Cooki...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/11/05/%E4%BC%9A%E8%AF%9D%E8%B7%9F%E8%B8%AA%E6%8A%80%E6%9C%AF/" title="会话跟踪技术">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="会话跟踪技术"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/11/03/Android%E5%9F%BA%E6%9C%AC%E5%B8%83%E5%B1%80/" title="Android基本布局">
+								Android基本布局			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 3日, 2019				
+							</p>
+							<p class="relate-post-content">
+								Android 基本布局基本理论Android六大基本布局分别是：线性布局LinearLayout、表格布局TableLayout、相对布局RelativeLayout、层布局FrameLayout、绝对布局AbsoluteLayou...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/11/03/Android%E5%9F%BA%E6%9C%AC%E5%B8%83%E5%B1%80/" title="Android基本布局">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Android基本布局"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" title="jsp对象">
+								jsp对象			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 1日, 2019				
+							</p>
+							<p class="relate-post-content">
+								1.request对象(1)request对象是http请求的代表
+requset对象是ServletRequset的一个实例。当客户端请求一个JPS网页时，JPS引擎会将客户的请求信息包装在这个request对象中。
+(2)requ...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/11/01/jsp%E5%AF%B9%E8%B1%A1/" title="jsp对象">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="jsp对象"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2019, content by John Doe. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>
